@@ -1014,9 +1014,6 @@
     <ClInclude Include="dedicated\dedicated.h">
       <Filter>Header Files\dedicated</Filter>
     </ClInclude>
-    <ClInclude Include="exploit_fixes\ns_limits.h">
-      <Filter>Header Files\exploit_fixes</Filter>
-    </ClInclude>
     <ClInclude Include="hooks\hooks.h">
       <Filter>Header Files\hooks</Filter>
     </ClInclude>
@@ -1400,9 +1397,6 @@
       <Filter>Source Files\shared\exploit_fixes</Filter>
     </ClCompile>
     <ClCompile Include="shared\exploit_fixes\exploitfixes_utf8parser.cpp">
-      <Filter>Source Files\shared\exploit_fixes</Filter>
-    </ClCompile>
-    <ClCompile Include="shared\exploit_fixes\ns_limits.cpp">
       <Filter>Source Files\shared\exploit_fixes</Filter>
     </ClCompile>
     <ClCompile Include="shared\maxplayers.cpp">

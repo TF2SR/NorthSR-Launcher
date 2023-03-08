@@ -417,7 +417,6 @@
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="engine\hoststate.h" />
     <ClInclude Include="engine\r2engine.h" />
-    <ClInclude Include="exploit_fixes\ns_limits.h" />
     <ClInclude Include="hooks\hooks.h" />
     <ClInclude Include="hooks\maxplayers.h" />
     <ClInclude Include="hooks\memalloc.h" />
@@ -532,7 +531,6 @@
     <ClCompile Include="shared\exploit_fixes\exploitfixes.cpp" />
     <ClCompile Include="shared\exploit_fixes\exploitfixes_lzss.cpp" />
     <ClCompile Include="shared\exploit_fixes\exploitfixes_utf8parser.cpp" />
-    <ClCompile Include="shared\exploit_fixes\ns_limits.cpp" />
     <ClCompile Include="shared\keyvalues.cpp" />
     <ClCompile Include="shared\maxplayers.cpp" />
     <ClCompile Include="shared\misccommands.cpp" />

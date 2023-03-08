@@ -1,5 +1,4 @@
 #include "serverchathooks.h"
-#include "shared/exploit_fixes/ns_limits.h"
 #include "squirrel/squirrel.h"
 #include "server/r2server.h"
 #include "util/utils.h"
@@ -50,10 +49,6 @@ void, __fastcall, (CServerGameDLL* self, unsigned int senderPlayerId, const char
 		_CServerGameDLL__OnReceivedSayTextMessage(self, senderPlayerId, text, isTeam);
 		return;
 	}
-
-	// check chat ratelimits
-	if (!g_pServerLimits->CheckChatLimits(&R2::g_pClientArray[senderPlayerId - 1]))
-		return;
 
 	SQRESULT result = g_pSquirrel<ScriptContext::SERVER>->Call(
 		"CServerGameDLL_ProcessMessageStartThread", static_cast<int>(senderPlayerId) - 1, text, isTeam);

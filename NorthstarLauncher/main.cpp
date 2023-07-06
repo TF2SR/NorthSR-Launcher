@@ -280,13 +280,13 @@ bool LoadNorthstar()
 {
 	FARPROC Hook_Init = nullptr;
 	{
-		swprintf_s(buffer, L"%s\\Northstar.dll", exePath);
+		swprintf_s(buffer, L"%s\\Ronin.dll", exePath);
 		hHookModule = LoadLibraryExW(buffer, 0, 8u);
 		if (hHookModule)
 			Hook_Init = GetProcAddress(hHookModule, "InitialiseNorthstar");
 		if (!hHookModule || Hook_Init == nullptr)
 		{
-			LibraryLoadError(GetLastError(), L"Northstar.dll", buffer);
+			LibraryLoadError(GetLastError(), L"Ronin.dll", buffer);
 			return false;
 		}
 	}

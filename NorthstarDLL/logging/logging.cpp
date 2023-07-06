@@ -22,6 +22,7 @@ namespace NS::log
 	std::shared_ptr<ColoredLogger> NATIVE_CL;
 	std::shared_ptr<ColoredLogger> NATIVE_SV;
 	std::shared_ptr<ColoredLogger> NATIVE_EN;
+	std::shared_ptr<ColoredLogger> FZZY;
 
 	std::shared_ptr<ColoredLogger> fs;
 	std::shared_ptr<ColoredLogger> rpak;
@@ -184,6 +185,7 @@ void InitialiseLogging()
 	NS::log::NATIVE_CL = std::make_shared<ColoredLogger>("NATIVE CL", NS::Colors::NATIVE_CL);
 	NS::log::NATIVE_SV = std::make_shared<ColoredLogger>("NATIVE SV", NS::Colors::NATIVE_SV);
 	NS::log::NATIVE_EN = std::make_shared<ColoredLogger>("NATIVE EN", NS::Colors::NATIVE_ENGINE);
+	NS::log::FZZY = std::make_shared<ColoredLogger>("FZZY", NS::Colors::NATIVE_ENGINE);
 
 	NS::log::fs = std::make_shared<ColoredLogger>("FILESYSTM", NS::Colors::FILESYSTEM);
 	NS::log::rpak = std::make_shared<ColoredLogger>("RPAK_FSYS", NS::Colors::RPAK);
@@ -197,6 +199,7 @@ void InitialiseLogging()
 	loggers.push_back(NS::log::NATIVE_CL);
 	loggers.push_back(NS::log::NATIVE_SV);
 	loggers.push_back(NS::log::NATIVE_EN);
+	loggers.push_back(NS::log::FZZY);
 
 	loggers.push_back(NS::log::fs);
 	loggers.push_back(NS::log::rpak);

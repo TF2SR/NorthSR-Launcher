@@ -408,7 +408,7 @@ int main(int argc, char* argv[])
 		if (!fs::exists("rn_startup_args.txt"))
 		{
 			std::ofstream file("rn_startup_args.txt");
-			std::string defaultArgs = "-multiple";
+			std::string defaultArgs = "-novid";
 			file.write(defaultArgs.c_str(), defaultArgs.length());
 			file.close();
 		}

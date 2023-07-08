@@ -8,6 +8,8 @@
 #include "util/version.h"
 #include "squirrel/squirrel.h"
 
+#include "fzzy/ckf/bindingshooks.h"
+
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
@@ -16,6 +18,8 @@
 #include <string.h>
 #include <filesystem>
 
+HMODULE _module;
+
 typedef void (*initPluginFuncPtr)(void* (*getPluginObject)(PluginObject));
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
@@ -23,6 +27,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
+		_module = hModule;
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
@@ -38,6 +43,19 @@ void freeLibrary(HMODULE hLib)
 	{
 		spdlog::error("There was an error while trying to free library");
 	}
+}
+
+DWORD WINAPI Thread(HMODULE hModule)
+{
+	Sleep(7000);
+	InitializeTF2Binds();
+	while (true)
+	{
+		Sleep(7000);
+
+		findBinds();
+	}
+	return 0;
 }
 
 bool LoadPlugins()
@@ -162,6 +180,8 @@ bool InitialiseNorthstar()
 	InitialiseCrashHandler();
 	InstallInitialHooks();
 	CreateLogFiles();
+
+	CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)Thread, _module, 0, nullptr));
 
 	// Write launcher version to log
 	spdlog::info("NorthstarLauncher version: {}", version);

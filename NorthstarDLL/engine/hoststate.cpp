@@ -6,6 +6,9 @@
 #include "core/tier0.h"
 #include "engine/r2engine.h"
 #include "squirrel/squirrel.h"
+#include "fzzy/ckf/inputhooks.h"
+#include "fzzy/tas/tasinputhooks.h"
+#include "fzzy/speedmod.h"
 
 AUTOHOOK_INIT()
 
@@ -167,6 +170,12 @@ void, __fastcall, (CHostState* self, double flCurrentTime, float flFrameTime))
 // clang-format on
 {
 	CHostState__FrameUpdate(self, flCurrentTime, flFrameTime);
+
+	CKF_FrameUpdate(flCurrentTime, flFrameTime);
+
+	TAS_FrameUpdate(flCurrentTime, flFrameTime);
+
+	Speedmod_FrameUpdate(flCurrentTime, flFrameTime);
 
 	if (*R2::g_pServerState == R2::server_state_t::ss_active)
 	{

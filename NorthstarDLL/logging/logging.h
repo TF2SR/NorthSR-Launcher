@@ -90,6 +90,7 @@ namespace NS::log
 	extern std::shared_ptr<ColoredLogger> NATIVE_CL;
 	extern std::shared_ptr<ColoredLogger> NATIVE_SV;
 	extern std::shared_ptr<ColoredLogger> NATIVE_EN;
+	extern std::shared_ptr<ColoredLogger> FZZY;
 
 	// File system
 	extern std::shared_ptr<ColoredLogger> fs;

@@ -47,7 +47,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>Northstar</TargetName>
+    <TargetName>Ronin</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -417,6 +417,11 @@
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="engine\hoststate.h" />
     <ClInclude Include="engine\r2engine.h" />
+    <ClInclude Include="fzzy\ckf\bindingshooks.h" />
+    <ClInclude Include="fzzy\ckf\inputhooks.h" />
+    <ClInclude Include="fzzy\ckf\xinputhooks.h" />
+    <ClInclude Include="fzzy\speedmod.h" />
+    <ClInclude Include="fzzy\tas\tasinputhooks.h" />
     <ClInclude Include="hooks\hooks.h" />
     <ClInclude Include="hooks\maxplayers.h" />
     <ClInclude Include="hooks\memalloc.h" />
@@ -492,6 +497,11 @@
     <ClCompile Include="engine\hoststate.cpp" />
     <ClCompile Include="engine\r2engine.cpp" />
     <ClCompile Include="engine\runframe.cpp" />
+    <ClCompile Include="fzzy\ckf\bindingshooks.cpp" />
+    <ClCompile Include="fzzy\ckf\inputhooks.cpp" />
+    <ClCompile Include="fzzy\ckf\xinputhooks.cpp" />
+    <ClCompile Include="fzzy\speedmod.cpp" />
+    <ClCompile Include="fzzy\tas\tasinputhooks.cpp" />
     <ClCompile Include="logging\crashhandler.cpp" />
     <ClCompile Include="logging\logging.cpp" />
     <ClCompile Include="logging\loghooks.cpp" />

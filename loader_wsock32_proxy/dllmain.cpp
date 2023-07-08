@@ -34,14 +34,14 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 			MessageBoxA(
 				GetForegroundWindow(),
 				"Failed getting game directory.\nThe game cannot continue and has to exit.",
-				"Northstar Wsock32 Proxy Error",
+				"Ronin Wsock32 Proxy Error",
 				0);
 			return true;
 		}
 
 		SetCurrentDirectoryW(exePath);
 
-		if (!ProvisionNorthstar()) // does not call InitialiseNorthstar yet, will do it on LauncherMain hook
+		if (!ProvisionRonin()) // does not call InitialiseRonin yet, will do it on LauncherMain hook
 			return true;
 
 		// copy the original library for system to our local directory, with changed name so that we can load it
@@ -75,7 +75,7 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 							e1.what(),
 							temp_dir.c_str(),
 							e2.what());
-						MessageBoxW(GetForegroundWindow(), buffer2, L"Northstar Wsock32 Proxy Error", 0);
+						MessageBoxW(GetForegroundWindow(), buffer2, L"Ronin Wsock32 Proxy Error", 0);
 						return false;
 					}
 				}

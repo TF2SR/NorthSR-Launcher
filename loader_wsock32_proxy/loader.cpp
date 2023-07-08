@@ -20,39 +20,39 @@ void LibraryLoadError(DWORD dwMessageId, const wchar_t* libName, const wchar_t* 
 			"found.",
 			text);
 	}
-	MessageBoxA(GetForegroundWindow(), text, "Northstar Wsock32 Proxy Error", 0);
+	MessageBoxA(GetForegroundWindow(), text, "Ronin Wsock32 Proxy Error", 0);
 }
 
-bool ShouldLoadNorthstar()
+bool ShouldLoadRonin()
 {
-	bool loadNorthstar = strstr(GetCommandLineA(), "-northstar");
+	bool loadRonin = strstr(GetCommandLineA(), "-ronin");
 
-	if (loadNorthstar)
-		return loadNorthstar;
+	if (loadRonin)
+		return loadRonin;
 
-	auto runNorthstarFile = std::ifstream("run_northstar.txt");
-	if (runNorthstarFile)
+	auto runRoninFile = std::ifstream("run_ronin.txt");
+	if (runRoninFile)
 	{
-		std::stringstream runNorthstarFileBuffer;
-		runNorthstarFileBuffer << runNorthstarFile.rdbuf();
-		runNorthstarFile.close();
-		if (!runNorthstarFileBuffer.str()._Starts_with("0"))
-			loadNorthstar = true;
+		std::stringstream runRoninFileBuffer;
+		runRoninFileBuffer << runRoninFile.rdbuf();
+		runRoninFile.close();
+		if (!runRoninFileBuffer.str()._Starts_with("0"))
+			loadRonin = true;
 	}
-	return loadNorthstar;
+	return loadRonin;
 }
 
-bool LoadNorthstar()
+bool LoadRonin()
 {
 	FARPROC Hook_Init = nullptr;
 	{
-		swprintf_s(buffer1, L"%s\\Northstar.dll", exePath);
+		swprintf_s(buffer1, L"%s\\Ronin.dll", exePath);
 		auto hHookModule = LoadLibraryExW(buffer1, 0, LOAD_WITH_ALTERED_SEARCH_PATH);
 		if (hHookModule)
-			Hook_Init = GetProcAddress(hHookModule, "InitialiseNorthstar");
+			Hook_Init = GetProcAddress(hHookModule, "InitialiseRonin");
 		if (!hHookModule || Hook_Init == nullptr)
 		{
-			LibraryLoadError(GetLastError(), L"Northstar.dll", buffer1);
+			LibraryLoadError(GetLastError(), L"Ronin.dll", buffer1);
 			return false;
 		}
 	}
@@ -66,20 +66,20 @@ LauncherMainType LauncherMainOriginal;
 
 int LauncherMainHook(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	if (ShouldLoadNorthstar())
-		LoadNorthstar();
+	if (ShouldLoadRonin())
+		LoadRonin();
 	return LauncherMainOriginal(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 }
 
-bool ProvisionNorthstar()
+bool ProvisionRonin()
 {
-	if (!ShouldLoadNorthstar())
+	if (!ShouldLoadRonin())
 		return true;
 
 	if (MH_Initialize() != MH_OK)
 	{
 		MessageBoxA(
-			GetForegroundWindow(), "MH_Initialize failed\nThe game cannot continue and has to exit.", "Northstar Wsock32 Proxy Error", 0);
+			GetForegroundWindow(), "MH_Initialize failed\nThe game cannot continue and has to exit.", "Ronin Wsock32 Proxy Error", 0);
 		return false;
 	}
 
@@ -89,7 +89,7 @@ bool ProvisionNorthstar()
 		MessageBoxA(
 			GetForegroundWindow(),
 			"Launcher isn't loaded yet.\nThe game cannot continue and has to exit.",
-			"Northstar Wsock32 Proxy Error",
+			"Ronin Wsock32 Proxy Error",
 			0);
 		return false;
 	}
@@ -97,7 +97,7 @@ bool ProvisionNorthstar()
 	LPVOID pTarget = GetProcAddress(launcherHandle, "LauncherMain");
 	if (MH_CreateHook(pTarget, &LauncherMainHook, reinterpret_cast<LPVOID*>(&LauncherMainOriginal)) != MH_OK ||
 		MH_EnableHook(pTarget) != MH_OK)
-		MessageBoxA(GetForegroundWindow(), "Hook creation failed for function LauncherMain.", "Northstar Wsock32 Proxy Error", 0);
+		MessageBoxA(GetForegroundWindow(), "Hook creation failed for function LauncherMain.", "Ronin Wsock32 Proxy Error", 0);
 
 	return true;
 }

@@ -78,7 +78,7 @@ class ColoredLogger : public spdlog::logger
 	}
 };
 
-namespace NS::log
+namespace RN::log
 {
 	// Squirrel
 	extern std::shared_ptr<ColoredLogger> SCRIPT_UI;
@@ -116,13 +116,13 @@ class ExternalConsoleSink : public CustomSink
 {
   private:
 	std::map<spdlog::level::level_enum, std::string> m_LogColours = {
-		{spdlog::level::trace, NS::Colors::TRACE.ToANSIColor()},
-		{spdlog::level::debug, NS::Colors::DEBUG.ToANSIColor()},
-		{spdlog::level::info, NS::Colors::INFO.ToANSIColor()},
-		{spdlog::level::warn, NS::Colors::WARN.ToANSIColor()},
-		{spdlog::level::err, NS::Colors::ERR.ToANSIColor()},
-		{spdlog::level::critical, NS::Colors::CRIT.ToANSIColor()},
-		{spdlog::level::off, NS::Colors::OFF.ToANSIColor()}};
+		{spdlog::level::trace, RN::Colors::TRACE.ToANSIColor()},
+		{spdlog::level::debug, RN::Colors::DEBUG.ToANSIColor()},
+		{spdlog::level::info, RN::Colors::INFO.ToANSIColor()},
+		{spdlog::level::warn, RN::Colors::WARN.ToANSIColor()},
+		{spdlog::level::err, RN::Colors::ERR.ToANSIColor()},
+		{spdlog::level::critical, RN::Colors::CRIT.ToANSIColor()},
+		{spdlog::level::off, RN::Colors::OFF.ToANSIColor()}};
 
 	std::string default_color = "\033[39;49m";
 

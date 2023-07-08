@@ -134,7 +134,7 @@ AUTOHOOK_PROCADDRESS(_XInputGetState, XInput1_4.dll, XInputGetState, DWORD, WINA
 			long long real = (ts.tv_nsec / 1000000) + (ts.tv_sec * 1000);
 			long sinceCrouch = real - controllerCrouchPressHolder.timestamp;
 
-			NS::log::FZZY->info(("crouchkick: " + std::to_string(sinceCrouch) + "ms CROUCH IS EARLY").c_str());
+			RN::log::FZZY->info(("crouchkick: " + std::to_string(sinceCrouch) + "ms CROUCH IS EARLY").c_str());
 			// m_sourceConsole->Print(("crouchkick: " + to_string(sinceCrouch) + "\n").c_str());
 		}
 		else
@@ -168,7 +168,7 @@ AUTOHOOK_PROCADDRESS(_XInputGetState, XInput1_4.dll, XInputGetState, DWORD, WINA
 			long long real = (ts.tv_nsec / 1000000) + (ts.tv_sec * 1000);
 			long sinceJump = real - controllerJumpPressHolder.timestamp;
 
-			NS::log::FZZY->info(("crouchkick: " + std::to_string(sinceJump) + "ms JUMP IS EARLY").c_str());
+			RN::log::FZZY->info(("crouchkick: " + std::to_string(sinceJump) + "ms JUMP IS EARLY").c_str());
 			// m_sourceConsole->Print(("crouchkick: " + to_string(sinceJump) + "\n").c_str());
 		}
 		else

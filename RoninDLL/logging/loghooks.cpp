@@ -118,7 +118,7 @@ int,, (void* const stream, const char* const format, ...))
 	{
 		if (buf[charsWritten - 1] == '\n')
 			buf[charsWritten - 1] = '\0';
-		NS::log::NATIVE_EN->info("{}", buf);
+		RN::log::NATIVE_EN->info("{}", buf);
 	}
 
 	va_end(va);
@@ -131,7 +131,7 @@ void,, (const CCommand& arg))
 // clang-format on
 {
 	if (arg.ArgC() >= 2)
-		NS::log::echo->info("{}", arg.ArgS());
+		RN::log::echo->info("{}", arg.ArgS());
 }
 
 // clang-format off
@@ -207,7 +207,7 @@ void, __fastcall, (void* pEngineServer, SpewType_t type, const char* format, va_
 	if (formatted[endpos - 1] == '\n')
 		formatted[endpos - 1] = '\0'; // cut off repeated newline
 
-	NS::log::NATIVE_SV->log(PrintSpewLevels.at(type), "{}", formatted);
+	RN::log::NATIVE_SV->log(PrintSpewLevels.at(type), "{}", formatted);
 }
 
 // used for printing the output of status

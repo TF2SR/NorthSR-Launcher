@@ -1,6 +1,6 @@
 #pragma once
 
-namespace NS::Utils
+namespace RN::Utils
 {
 	void RemoveAsciiControlSequences(char* str, bool allow_color_codes);
 }

@@ -173,7 +173,7 @@ class Color
 	unsigned char _color[4];
 };
 
-namespace NS::Colors
+namespace RN::Colors
 {
 	extern Color SCRIPT_UI;
 	extern Color SCRIPT_CL;

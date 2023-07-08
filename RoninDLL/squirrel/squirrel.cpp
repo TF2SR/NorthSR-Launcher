@@ -15,18 +15,18 @@ std::shared_ptr<ColoredLogger> getSquirrelLoggerByContext(ScriptContext context)
 	switch (context)
 	{
 	case ScriptContext::UI:
-		return NS::log::SCRIPT_UI;
+		return RN::log::SCRIPT_UI;
 	case ScriptContext::CLIENT:
-		return NS::log::SCRIPT_CL;
+		return RN::log::SCRIPT_CL;
 	case ScriptContext::SERVER:
-		return NS::log::SCRIPT_SV;
+		return RN::log::SCRIPT_SV;
 	default:
 		throw std::runtime_error("getSquirrelLoggerByContext called with invalid context");
 		return nullptr;
 	}
 }
 
-namespace NS::log
+namespace RN::log
 {
 	template <ScriptContext context> std::shared_ptr<spdlog::logger> squirrel_logger()
 	{
@@ -215,7 +215,7 @@ template <ScriptContext context> void SquirrelManager<context>::VMDestroyed()
 	// Call all registered mod Destroy callbacks.
 	if (g_pModManager)
 	{
-		NS::log::squirrel_logger<context>()->info("Calling Destroy callbacks for all loaded mods.");
+		RN::log::squirrel_logger<context>()->info("Calling Destroy callbacks for all loaded mods.");
 
 		for (const Mod& loadedMod : g_pModManager->m_LoadedMods)
 		{
@@ -229,7 +229,7 @@ template <ScriptContext context> void SquirrelManager<context>::VMDestroyed()
 					}
 
 					Call(callback.DestroyCallback.c_str());
-					NS::log::squirrel_logger<context>()->info("Executed Destroy callback {}.", callback.DestroyCallback);
+					RN::log::squirrel_logger<context>()->info("Executed Destroy callback {}.", callback.DestroyCallback);
 				}
 			}
 		}
@@ -565,7 +565,7 @@ template <ScriptContext context> void SquirrelManager<context>::ProcessMessageBu
 		int result = sq_getfunction(m_pSQVM->sqvm, message.functionName.c_str(), &functionobj, 0);
 		if (result != 0) // This func returns 0 on success for some reason
 		{
-			NS::log::squirrel_logger<context>()->error(
+			RN::log::squirrel_logger<context>()->error(
 				"ProcessMessageBuffer was unable to find function with name '{}'. Is it global?", message.functionName);
 			continue;
 		}
@@ -714,8 +714,8 @@ ON_DLL_LOAD_RELIESON("client.dll", ClientSquirrel, ConCommand, (CModule module))
 		&g_pSquirrel<ScriptContext::CLIENT>->RegisterSquirrelFunc);
 	g_pSquirrel<ScriptContext::UI>->RegisterSquirrelFunc = g_pSquirrel<ScriptContext::CLIENT>->RegisterSquirrelFunc;
 
-	g_pSquirrel<ScriptContext::CLIENT>->logger = NS::log::SCRIPT_CL;
-	g_pSquirrel<ScriptContext::UI>->logger = NS::log::SCRIPT_UI;
+	g_pSquirrel<ScriptContext::CLIENT>->logger = RN::log::SCRIPT_CL;
+	g_pSquirrel<ScriptContext::UI>->logger = RN::log::SCRIPT_UI;
 
 	// uiscript_reset concommand: don't loop forever if compilation fails
 	module.Offset(0x3C6E4C).NOP(6);
@@ -785,7 +785,7 @@ ON_DLL_LOAD_RELIESON("server.dll", ServerSquirrel, ConCommand, (CModule module))
 	g_pSquirrel<ScriptContext::SERVER>->__sq_GetEntityConstant_CBaseEntity = module.Offset(0x418AF0).As<sq_GetEntityConstantType>();
 	g_pSquirrel<ScriptContext::SERVER>->__sq_getentityfrominstance = module.Offset(0x1E920).As<sq_getentityfrominstanceType>();
 
-	g_pSquirrel<ScriptContext::SERVER>->logger = NS::log::SCRIPT_SV;
+	g_pSquirrel<ScriptContext::SERVER>->logger = RN::log::SCRIPT_SV;
 	// Message buffer stuff
 	g_pSquirrel<ScriptContext::SERVER>->__sq_getfunction = module.Offset(0x6C85).As<sq_getfunctionType>();
 	g_pSquirrel<ScriptContext::SERVER>->__sq_stackinfos = module.Offset(0x35920).As<sq_stackinfosType>();

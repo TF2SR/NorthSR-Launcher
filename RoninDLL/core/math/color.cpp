@@ -1,6 +1,6 @@
 
 // clang-format off
-namespace NS::Colors
+namespace RN::Colors
 {
 	Color SCRIPT_UI		(100, 255, 255);
 	Color SCRIPT_CL		(100, 255, 100);

@@ -58,7 +58,7 @@ void CKF_FrameUpdate(double flCurrentTime, float flFrameTime)
 
 			if (e < 100)
 			{
-				NS::log::FZZY->info(("not crouchkick: " + std::to_string(e) + "ms JUMP IS EARLY").c_str());
+				RN::log::FZZY->info(("not crouchkick: " + std::to_string(e) + "ms JUMP IS EARLY").c_str());
 			}
 		}
 	}
@@ -105,7 +105,7 @@ void CKF_FrameUpdate(double flCurrentTime, float flFrameTime)
 
 			if (e < 100)
 			{
-				NS::log::FZZY->info(("not crouchkick: " + std::to_string(e) + "ms CROUCH IS EARLY").c_str());
+				RN::log::FZZY->info(("not crouchkick: " + std::to_string(e) + "ms CROUCH IS EARLY").c_str());
 			}
 		}
 	}
@@ -162,7 +162,7 @@ AUTOHOOK(
 					// auto crouchElapsed = std::chrono::steady_clock::now() - crouchPressHolder.timestamp;
 					// long long sinceCrouch = std::chrono::duration_cast<std::chrono::milliseconds>(crouchElapsed).count();
 					// m_sourceConsole->Print(("crouchkick: " + to_string(sinceCrouch) + "ms CROUCH IS EARLY\n").c_str());
-					NS::log::FZZY->info(("crouchkick: " + std::to_string(sinceCrouch) + "ms CROUCH IS EARLY").c_str());
+					RN::log::FZZY->info(("crouchkick: " + std::to_string(sinceCrouch) + "ms CROUCH IS EARLY").c_str());
 
 					// playSound();
 					PostEvent(
@@ -204,7 +204,7 @@ AUTOHOOK(
 					else
 						superglideCrouchFrame = 1;
 					// m_sourceConsole->Print(("superglide: " + to_string(framesSinceJump) + "\n").c_str());
-					NS::log::FZZY->info(("superglide: " + std::to_string(framesSinceJump)).c_str());
+					RN::log::FZZY->info(("superglide: " + std::to_string(framesSinceJump)).c_str());
 					return 0;
 				}
 				if (jumpPressHolder.waitingToSend && sinceJump <= CROUCHKICK_BUFFERING)
@@ -214,7 +214,7 @@ AUTOHOOK(
 					// auto jumpElapsed = std::chrono::steady_clock::now() - jumpPressHolder.timestamp;
 					// long long sinceJump = std::chrono::duration_cast<std::chrono::milliseconds>(jumpElapsed).count();
 					// m_sourceConsole->Print(("crouchkick: " + to_string(sinceJump) + "ms JUMP IS EARLY\n").c_str());
-					NS::log::FZZY->info(("crouchkick: " + std::to_string(sinceJump) + "ms JUMP IS EARLY").c_str());
+					RN::log::FZZY->info(("crouchkick: " + std::to_string(sinceJump) + "ms JUMP IS EARLY").c_str());
 
 					// playSound();
 					PostEvent(

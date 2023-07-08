@@ -12,7 +12,7 @@ AUTOHOOK_INIT()
 
 std::vector<std::shared_ptr<ColoredLogger>> loggers {};
 
-namespace NS::log
+namespace RN::log
 {
 	std::shared_ptr<ColoredLogger> SCRIPT_UI;
 	std::shared_ptr<ColoredLogger> SCRIPT_CL;
@@ -160,10 +160,10 @@ void RegisterCustomSink(std::shared_ptr<CustomSink> sink)
 void InitialiseLogging()
 {
 	// create a logger, and set it to default
-	NS::log::RONIN = std::make_shared<ColoredLogger>("RONIN", NS::Colors::RONIN, true);
-	NS::log::RONIN->sinks().clear();
-	loggers.push_back(NS::log::RONIN);
-	spdlog::set_default_logger(NS::log::RONIN);
+	RN::log::RONIN = std::make_shared<ColoredLogger>("RONIN", RN::Colors::RONIN, true);
+	RN::log::RONIN->sinks().clear();
+	loggers.push_back(RN::log::RONIN);
+	spdlog::set_default_logger(RN::log::RONIN);
 
 	// create our console sink
 	auto sink = std::make_shared<ExternalConsoleSink>();
@@ -175,38 +175,38 @@ void InitialiseLogging()
 		sink->set_pattern("[%H:%M:%S] [%n] [%l] %v");
 
 	// add our sink to the logger
-	NS::log::RONIN->custom_sinks_.push_back(sink);
+	RN::log::RONIN->custom_sinks_.push_back(sink);
 
-	NS::log::SCRIPT_UI = std::make_shared<ColoredLogger>("SCRIPT UI", NS::Colors::SCRIPT_UI);
-	NS::log::SCRIPT_CL = std::make_shared<ColoredLogger>("SCRIPT CL", NS::Colors::SCRIPT_CL);
-	NS::log::SCRIPT_SV = std::make_shared<ColoredLogger>("SCRIPT SV", NS::Colors::SCRIPT_SV);
+	RN::log::SCRIPT_UI = std::make_shared<ColoredLogger>("SCRIPT UI", RN::Colors::SCRIPT_UI);
+	RN::log::SCRIPT_CL = std::make_shared<ColoredLogger>("SCRIPT CL", RN::Colors::SCRIPT_CL);
+	RN::log::SCRIPT_SV = std::make_shared<ColoredLogger>("SCRIPT SV", RN::Colors::SCRIPT_SV);
 
-	NS::log::NATIVE_UI = std::make_shared<ColoredLogger>("NATIVE UI", NS::Colors::NATIVE_UI);
-	NS::log::NATIVE_CL = std::make_shared<ColoredLogger>("NATIVE CL", NS::Colors::NATIVE_CL);
-	NS::log::NATIVE_SV = std::make_shared<ColoredLogger>("NATIVE SV", NS::Colors::NATIVE_SV);
-	NS::log::NATIVE_EN = std::make_shared<ColoredLogger>("NATIVE EN", NS::Colors::NATIVE_ENGINE);
-	NS::log::FZZY = std::make_shared<ColoredLogger>("FZZY", NS::Colors::NATIVE_ENGINE);
+	RN::log::NATIVE_UI = std::make_shared<ColoredLogger>("NATIVE UI", RN::Colors::NATIVE_UI);
+	RN::log::NATIVE_CL = std::make_shared<ColoredLogger>("NATIVE CL", RN::Colors::NATIVE_CL);
+	RN::log::NATIVE_SV = std::make_shared<ColoredLogger>("NATIVE SV", RN::Colors::NATIVE_SV);
+	RN::log::NATIVE_EN = std::make_shared<ColoredLogger>("NATIVE EN", RN::Colors::NATIVE_ENGINE);
+	RN::log::FZZY = std::make_shared<ColoredLogger>("FZZY", RN::Colors::NATIVE_ENGINE);
 
-	NS::log::fs = std::make_shared<ColoredLogger>("FILESYSTM", NS::Colors::FILESYSTEM);
-	NS::log::rpak = std::make_shared<ColoredLogger>("RPAK_FSYS", NS::Colors::RPAK);
-	NS::log::echo = std::make_shared<ColoredLogger>("ECHO", NS::Colors::ECHO);
+	RN::log::fs = std::make_shared<ColoredLogger>("FILESYSTM", RN::Colors::FILESYSTEM);
+	RN::log::rpak = std::make_shared<ColoredLogger>("RPAK_FSYS", RN::Colors::RPAK);
+	RN::log::echo = std::make_shared<ColoredLogger>("ECHO", RN::Colors::ECHO);
 
-	loggers.push_back(NS::log::SCRIPT_UI);
-	loggers.push_back(NS::log::SCRIPT_CL);
-	loggers.push_back(NS::log::SCRIPT_SV);
+	loggers.push_back(RN::log::SCRIPT_UI);
+	loggers.push_back(RN::log::SCRIPT_CL);
+	loggers.push_back(RN::log::SCRIPT_SV);
 
-	loggers.push_back(NS::log::NATIVE_UI);
-	loggers.push_back(NS::log::NATIVE_CL);
-	loggers.push_back(NS::log::NATIVE_SV);
-	loggers.push_back(NS::log::NATIVE_EN);
-	loggers.push_back(NS::log::FZZY);
+	loggers.push_back(RN::log::NATIVE_UI);
+	loggers.push_back(RN::log::NATIVE_CL);
+	loggers.push_back(RN::log::NATIVE_SV);
+	loggers.push_back(RN::log::NATIVE_EN);
+	loggers.push_back(RN::log::FZZY);
 
-	loggers.push_back(NS::log::fs);
-	loggers.push_back(NS::log::rpak);
-	loggers.push_back(NS::log::echo);
+	loggers.push_back(RN::log::fs);
+	loggers.push_back(RN::log::rpak);
+	loggers.push_back(RN::log::echo);
 }
 
-void NS::log::FlushLoggers()
+void RN::log::FlushLoggers()
 {
 	for (auto& logger : loggers)
 		logger->flush();

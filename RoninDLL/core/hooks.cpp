@@ -242,7 +242,7 @@ AUTOHOOK_ABSOLUTEADDR(_GetCommandLineA, GetCommandLineA, LPSTR, WINAPI, ())
 		if (!ignoreStartupArgs)
 		{
 
-			cmdlineArgFile = std::ifstream(!isDedi ? "ns_startup_args.txt" : "ns_startup_args_dedi.txt");
+			cmdlineArgFile = std::ifstream("rn_startup_args.txt");
 
 			if (cmdlineArgFile)
 			{
@@ -255,7 +255,7 @@ AUTOHOOK_ABSOLUTEADDR(_GetCommandLineA, GetCommandLineA, LPSTR, WINAPI, ())
 				if (!isDedi && argBuffer.str().find("-ronin") != std::string::npos)
 					MessageBoxA(
 						NULL,
-						"The \"-ronin\" command line option is NOT supposed to go into ns_startup_args.txt file!\n\nThis option is "
+						"The \"-ronin\" command line option is NOT supposed to go into en_startup_args.txt file!\n\nThis option is "
 						"supposed to go into Origin/Steam game launch options, and then you are supposed to launch the original "
 						"Titanfall2.exe "
 						"rather than RoninLauncher.exe to make use of it.",

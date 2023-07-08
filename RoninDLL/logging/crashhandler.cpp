@@ -72,7 +72,7 @@ void PrintExceptionLog(ExceptionLog& exc)
 			"Ronin has crashed!",
 			MB_ICONERROR | MB_OK | MB_SYSTEMMODAL);
 
-	NS::log::FlushLoggers();
+	RN::log::FlushLoggers();
 }
 
 std::string GetExceptionName(ExceptionLog& exc)

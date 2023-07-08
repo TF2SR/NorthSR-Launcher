@@ -39,7 +39,7 @@ const char* SQTypeNameFromID(const int iTypeId);
 
 ScriptContext ScriptContextFromString(std::string string);
 
-namespace NS::log
+namespace RN::log
 {
 	template <ScriptContext context> std::shared_ptr<spdlog::logger> squirrel_logger();
 }; // namespace NS::log
@@ -329,7 +329,7 @@ template <ScriptContext context> class SquirrelManager : public virtual Squirrel
 		int result = sq_getfunction(m_pSQVM->sqvm, funcname, &functionobj, 0);
 		if (result != 0) // This func returns 0 on success for some reason
 		{
-			NS::log::squirrel_logger<context>()->error("Call was unable to find function with name '{}'. Is it global?", funcname);
+			RN::log::squirrel_logger<context>()->error("Call was unable to find function with name '{}'. Is it global?", funcname);
 			return SQRESULT_ERROR;
 		}
 		pushobject(m_pSQVM->sqvm, &functionobj); // Push the function object
@@ -352,7 +352,7 @@ template <ScriptContext context> class SquirrelManager : public virtual Squirrel
 		int result = sq_getfunction(m_pSQVM->sqvm, funcname, &functionobj, 0);
 		if (result != 0) // This func returns 0 on success for some reason
 		{
-			NS::log::squirrel_logger<context>()->error("Call was unable to find function with name '{}'. Is it global?", funcname);
+			RN::log::squirrel_logger<context>()->error("Call was unable to find function with name '{}'. Is it global?", funcname);
 			return SQRESULT_ERROR;
 		}
 		pushobject(m_pSQVM->sqvm, &functionobj); // Push the function object

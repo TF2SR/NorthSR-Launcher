@@ -21,7 +21,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: NorthstarLauncher-${{ steps.extract.outputs.commit }}
+          name: RoninLauncher-${{ steps.extract.outputs.commit }}
           path: |
             x64/${{ env.BUILD_PROFILE }}/*.dll
             x64/${{ env.BUILD_PROFILE }}/*.exe
@@ -34,8 +34,8 @@ jobs:
     - uses: actions/checkout@v3
     - uses: DoozyX/clang-format-lint-action@v0.13
       with:
-        source: 'NorthstarDLL NorthstarLauncher'
-        exclude: 'NorthstarDLL/include loader_launcher_proxy loader_wsock32_proxy'
+        source: 'RoninDLL RoninLauncher'
+        exclude: 'RoninDLL/include loader_launcher_proxy loader_wsock32_proxy'
         extensions: 'h,cpp'
         clangFormatVersion: 13
         style: file

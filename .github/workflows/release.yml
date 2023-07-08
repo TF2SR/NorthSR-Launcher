@@ -16,10 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup msvc
-        uses: ilammy/msvc-dev-cmd@v1
-      - name: Configure cmake
-        run: cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Release"
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
       - name: Setup resource file version
         shell: bash
         run: |
@@ -27,21 +25,22 @@ jobs:
           FILEVERSION=$(echo ${{ env.RONIN_VERSION }} | tr '.' ',' | sed -E 's/-rc[0-9]+//' | tr -d '[:alpha:]')
           sed -i "s/0,0,0,1/${FILEVERSION}/g" RoninDLL/ns_version.h
       - name: Build
-        run: cmake --build .
+        run: |
+          msbuild /p:Configuration=Release R2Ronin.sln
       - name: Upload launcher build as artifact
         uses: actions/upload-artifact@v3
         with:
           name: ronin-launcher
           path: |
-            game/*.exe
-            game/*.dll
+            x64/Release/*.dll
+            x64/Release/*.exe
+            x64/Release/*.txt
       - name: Upload debug build artifact
         uses: actions/upload-artifact@v3
         with:
           name: launcher-debug-files
           path: |
-            game/*.pdb
-            game/bin/x64_retail/*.pdb
+            x64/Release/*.pdb
 
   upload-launcher-to-release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -58,18 +57,14 @@ jobs:
         with:
           name: launcher-debug-files
           path: launcher-debug-files
-      - name: Create zip with binaries
+      - name: Create zip to upload
         run: |
-          cd ronin-launcher
-          zip --recurse-paths --quiet ../ronin-launcher.zip *
-      - name: Create zip with debug symbols
-        run: |
-          cd launcher-debug-files
-          zip --recurse-paths --quiet ../launcher-debug-files.zip *
+          zip --recurse-paths --quiet --junk-paths ronin-launcher.zip ronin-launcher/
+          zip --recurse-paths --quiet --junk-paths launcher-debug-files.zip launcher-debug-files/
       - name: Upload files to release
         uses: softprops/action-gh-release@v1
         with:
-          body: ":warning: These are development files! If you want to download Ronin, [go here instead](https://github.com/TF2SR/Ronin/releases) :warning:"
+          body: ":warning: These are development files! If you want to download Ronin, [go here instead](https://github.com/R2Ronin/Ronin/releases) :warning:"
           draft: false
           files: |
             ronin-launcher.zip

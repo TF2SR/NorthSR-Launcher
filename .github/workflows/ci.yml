@@ -10,22 +10,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup msvc
-        uses: ilammy/msvc-dev-cmd@v1
-      - name: Configure cmake
-        run: cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="${{ env.BUILD_PROFILE }}"
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
       - name: Build
-        run: cmake --build .
+        run: msbuild /p:Configuration=${{ env.BUILD_PROFILE }}
       - name: Extract Short Commit Hash
         id: extract
         shell: bash
-        run: echo commit=$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
+        run: echo ::set-output name=commit::`git rev-parse --short HEAD`
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
           name: RoninLauncher-${{ steps.extract.outputs.commit }}
           path: |
-            game/
+            x64/${{ env.BUILD_PROFILE }}/*.dll
+            x64/${{ env.BUILD_PROFILE }}/*.exe
+            x64/${{ env.BUILD_PROFILE }}/*.pdb
+            x64/${{ env.BUILD_PROFILE }}/*.txt
 
   format-check:
     runs-on: ubuntu-latest
@@ -34,7 +35,7 @@ jobs:
     - uses: DoozyX/clang-format-lint-action@v0.13
       with:
         source: 'RoninDLL RoninLauncher'
-        exclude: 'RoninDLL/include loader_launcher_proxy'
+        exclude: 'RoninDLL/include loader_launcher_proxy loader_wsock32_proxy'
         extensions: 'h,cpp'
         clangFormatVersion: 13
         style: file

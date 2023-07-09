@@ -59,7 +59,7 @@ float* getYaw() {
 	{
 		return 0;
 	}
-	float* addr = _yaw.Deref().Offset(0x1E94).As<float*>();
+	float* addr = _yaw.Deref().Offset(0x1EAC).As<float*>();
 	return addr;
 }
 
@@ -459,7 +459,7 @@ ON_DLL_LOAD_CLIENT("client.dll", TASClientHooks, (CModule module))
 	_velY = module.Offset(0xB34C30).As<float*>();
 	_velZ = module.Offset(0xB34C34).As<float*>();
 	_onGround = module.Offset(0x11EED78).As<bool*>();
-	_yaw = module.Offset(0xE69EA0);
+	_yaw = module.Offset(0xB18748);
 
 	Cvar_fzzy_enableTas = new ConVar("fzzy_enableTas", "0", FCVAR_NONE, "Controls whether TAS tools will override inputs");
 }
